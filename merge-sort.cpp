@@ -120,14 +120,6 @@ int main() {
     int init_size;
     std::cout << "How many elements would you like to sort? \n";
     std::cin >> init_size;
-    // Cap number of elements to 50.
-    if(init_size > 50) {
-        init_size = 50;
-    }
-    // Minimum of 4 elements.
-    if (init_size < 4) {
-        init_size = 4;
-    }
 
     // Create the initial array.
     int* init_array = new int[init_size];
@@ -161,7 +153,7 @@ int main() {
     }
     std::cout << "\n";
 
-    std::cout << "\nTime taken = " << merge_duration.count() << " milliseconds";
+    std::cout << "\nTime taken = " << merge_duration.count() << " milliseconds\n";
 
     // Deallocate the array pointer.
     delete[] init_array;
