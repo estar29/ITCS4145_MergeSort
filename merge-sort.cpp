@@ -116,11 +116,7 @@ void generate_data(int* arr, size_t n)
 
 
 // Main function for running the program.
-int main() {
-    int init_size;
-    std::cout << "How many elements would you like to sort? \n";
-    std::cin >> init_size;
-
+void initialize(int init_size) {
     // Create the initial array.
     int* init_array = new int[init_size];
     generate_data(init_array, init_size);
@@ -157,6 +153,9 @@ int main() {
 
     // Deallocate the array pointer.
     delete[] init_array;
+}
 
+// Main function
+int main() {
     return 0;
 }
