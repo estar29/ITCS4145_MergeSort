@@ -120,7 +120,7 @@ void generate_data(int* arr, size_t n)
 int main(int argc, char *argv[]) {
     // Create the initial array.
     // argv[1] will be the number of elements the user will want sorted.
-    int init_size = (int) argv[1];
+    int init_size = atoi(argv[1]);
     int* init_array = new int[init_size];
     generate_data(init_array, init_size);
     
