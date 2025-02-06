@@ -37,7 +37,7 @@
 
 using namespace std;
 
-void merge(int* arr, int low, int mid, int high) {
+void merge(size_t* arr, int low, int mid, int high) {
     // Initialize a temporary array.
     // Vector is used here to take advantage of its array operations.
     vector<int> temp_array;
@@ -82,7 +82,7 @@ void merge(int* arr, int low, int mid, int high) {
 
 
 
-void merge_sort(int* arr, int low, int high) {
+void merge_sort(size_t* arr, int low, int high) {
     // Return if array has one element; i.e. low's index is greater/equal to than the high index.
     if (low >= high) {
         return;
@@ -102,7 +102,7 @@ void merge_sort(int* arr, int low, int high) {
 
 
 // Function to generate data
-void generate_data(int* arr, size_t n)
+void generate_data(size_t* arr, size_t n)
 {
     // Call srand to ensure different output.
     srand(time(0));
@@ -120,8 +120,8 @@ void generate_data(int* arr, size_t n)
 int main(int argc, char *argv[]) {
     // Create the initial array.
     // argv[1] will be the number of elements the user will want sorted.
-    int init_size = atoi(argv[1]);
-    int* init_array = new int[init_size];
+    size_t init_size = (size_t) (argv[1]);
+    size_t* init_array = new size_t[init_size];
     generate_data(init_array, init_size);
     
     // Get the low and high indexes, and call merge_sort function.

@@ -8,7 +8,7 @@
 g++ -o merge-output merge-sort.cpp
 
 ./merge-sort 10
-#./merge-sort 100
+./merge-sort 100
 #./merge-sort 1000
 #./merge-sort 10000
 #./merge-sort 100000
