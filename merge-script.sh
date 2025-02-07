@@ -3,7 +3,7 @@
 #SBATCH --job-name=MergeSort
 #SBATCH --partition=Centaurus
 #SBATCH --time=02:00:00
-#SBATCH --mem=4G
+#SBATCH --mem=16G
 
 g++ -o merge-output merge-sort.cpp
 
