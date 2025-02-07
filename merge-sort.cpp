@@ -28,23 +28,26 @@
 // https://godbolt.org/z/oe5cMd
 // https://devdocs.io/cpp/header/chrono
 // https://www.geeksforgeeks.org/command-line-arguments-in-cpp/
+// https://stackoverflow.com/questions/3054567/right-way-to-deallocate-an-stdvector-object
 
-// A brief ChatGPT discussion was held to attempt to debug segmentation faults.
-// When this conversation occurred, I had spent roughly 1-1.5 hours on debugging this issue.
+// CHATGPT Conversations about debugging segmentation faults and allocation errors.
 // https://chatgpt.com/share/679aad60-3bd8-8001-831d-e00a8827ead3
+// https://chatgpt.com/share/67a54947-5550-8001-849b-5030eb9aafee
+// https://chatgpt.com/share/67a5679e-67b8-8001-b558-0c945d5a531e
 
 // ADDITIONAL CODE ASSISTANCE PROVIDED BY TA DAVASHISH BHAT DURING OFFICE HOURS //
 
 using namespace std;
 
-void merge(size_t* arr, int low, int mid, int high) {
+void merge(size_t* arr, size_t low, size_t mid, size_t high) {
     // Initialize a temporary array.
     // Vector is used here to take advantage of its array operations.
-    vector<int> temp_array;
+    vector<size_t> temp_array;
+    temp_array.reserve(1000);
 
     // Get starting points of the left and right sub-arrays.
-    int left = low;
-    int right = mid+1;
+    size_t left = low;
+    size_t right = mid+1;
 
     while(left <= mid && right <= high) {
         // If left size element <= to right side element --> put into array.
@@ -57,7 +60,6 @@ void merge(size_t* arr, int low, int mid, int high) {
             temp_array.push_back(arr[right]);
             right++;
         }
-    
     }
 
     // Put remaining left side elements in the sorted array.
@@ -73,23 +75,25 @@ void merge(size_t* arr, int low, int mid, int high) {
     
     // Rebuilding the originial array.
     // Elements added in reverse.
-    for (int a=high; a >= low; a--) {
+    for (size_t a= high + 1; a > low; a--) {
         arr[a] = temp_array.back();
         temp_array.pop_back();
     }
-
+    
+    // Ensuring memory is deallocated
+    temp_array.clear();
 }
 
 
 
-void merge_sort(size_t* arr, int low, int high) {
+void merge_sort(size_t* arr, size_t low, size_t high) {
     // Return if array has one element; i.e. low's index is greater/equal to than the high index.
     if (low >= high) {
         return;
     }
     
     // Calculate the middle index.
-    int mid = (low + high) / 2;
+    size_t mid = (low + high) / 2;
         
     // Recursive call on the left half.
     merge_sort(arr,low, mid);
@@ -107,7 +111,7 @@ void generate_data(size_t* arr, size_t n)
     // Call srand to ensure different output.
     srand(time(0));
     
-    for(int i=0;i<n;i++)
+    for(size_t i=0;i<n;i++)
     {
         // Cap elements from the integers 0-49.
         arr[i] = rand() % 50;
@@ -125,8 +129,8 @@ int main(int argc, char *argv[]) {
     generate_data(init_array, init_size);
     
     // Get the low and high indexes, and call merge_sort function.
-    int low = init_size - init_size;
-    int high = init_size - 1;
+    size_t low = init_size - init_size;
+    size_t high = init_size - 1;
 
     // Calculating run-time.
     using std::chrono::high_resolution_clock;
@@ -143,5 +147,6 @@ int main(int argc, char *argv[]) {
 
     // Deallocate the array pointer.
     delete[] init_array;
+    
     return 0;
 }
