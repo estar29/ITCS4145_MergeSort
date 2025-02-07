@@ -124,7 +124,7 @@ void generate_data(size_t* arr, size_t n)
 int main(int argc, char *argv[]) {
     // Create the initial array.
     // argv[1] will be the number of elements the user will want sorted.
-    size_t init_size = (size_t) (argv[1]);
+    size_t init_size = (std::atoi(argv[1]));
     size_t* init_array = new size_t[init_size];
     generate_data(init_array, init_size);
     
